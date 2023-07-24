@@ -1,0 +1,9 @@
+numpy
+streamlit
+torch
+scikit-learn
+easyocr
+nltk
+contractions
+pyspellchecker
+Pillow
