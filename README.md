@@ -6,7 +6,7 @@ A Machine learning OCR and Sentiment Analysis model.
 Tech Stack: Python, Scikit-Learn, Easy OCR, Streamlit.
 
 #### To see this app working live: 
-Hop onto: 
+Hop onto: [https://image-ocr-and-text-analysis.streamlit.app/](https://image-ocr-and-text-analysis.streamlit.app/)
 
 
 #### To run this project on your local system: 
