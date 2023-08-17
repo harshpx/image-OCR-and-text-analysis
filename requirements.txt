@@ -1,9 +1,6 @@
 numpy
 streamlit
-torch
+pytesseract
 scikit-learn
-easyocr
 nltk
 contractions
-pyspellchecker
-Pillow
