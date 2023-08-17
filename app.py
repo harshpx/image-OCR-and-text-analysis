@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import pytesseract
 import streamlit as st
 import cv2
