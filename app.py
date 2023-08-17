@@ -155,10 +155,10 @@ def main():
         if uploaded_file is not None:
             image = PIL.Image.open(uploaded_file)
             st.image(image, caption="Uploaded Image", use_column_width=True)
-            image = np.array(image)
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-            image = cv2.medianBlur(image, 3)
+            # image = np.array(image)
+            # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+            # image = cv2.medianBlur(image, 3)
             text = extract_text(image)
             sentiment = predict_sentiment(text)
             emotion = predict_emotion(text)
@@ -170,10 +170,10 @@ def main():
             if image_url:
                 image = PIL.Image.open(requests.get(image_url, stream=True).raw)
                 st.image(image, caption="Uploaded Image", use_column_width=True)
-                image = np.array(image)
-                image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-                image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-                image = cv2.medianBlur(image, 3)
+                # image = np.array(image)
+                # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+                # image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+                # image = cv2.medianBlur(image, 3)
                 text = extract_text(image)
                 sentiment = predict_sentiment(text)
                 emotion = predict_emotion(text)
