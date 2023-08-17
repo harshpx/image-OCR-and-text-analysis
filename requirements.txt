@@ -1,6 +1,5 @@
 numpy
 streamlit
-libtesseract-dev
 pytesseract
 scikit-learn
 nltk
