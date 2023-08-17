@@ -1,5 +1,4 @@
 import numpy
-import cv2
 import pytesseract
 import streamlit as st
 import pickle
