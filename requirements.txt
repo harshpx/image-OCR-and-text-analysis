@@ -3,4 +3,3 @@ streamlit
 pytesseract
 scikit-learn
 nltk
-pillow
