@@ -1,6 +1,7 @@
 numpy
 streamlit
-pytesseract
+tesseract-ocr
+libtesseract-dev
 scikit-learn
 nltk
 Pillow
