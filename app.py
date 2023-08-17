@@ -1,23 +1,16 @@
 import numpy
+import cv2
+import pytesseract
 import streamlit as st
-import easyocr
 import pickle
 import re
 import PIL
-import contractions
 import requests
-from spellchecker import SpellChecker
 import nltk
 nltk.download('stopwords')
 nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-
-
-@st.cache_resource
-def load_OCR():
-    OCR = easyocr.Reader(['en'])
-    return OCR
 
 def nlp(text):
     def remove_emoji(text):
@@ -104,17 +97,6 @@ def nlp(text):
         text = sample_abbr_pattern.sub(lambda x: sample_abbr[x.group()], text)
         return text
     
-    def correct_spellings(text):
-        spell = SpellChecker()
-        corrected_text = []
-        misspelled_words = spell.unknown(text.split())
-        for word in text.split():
-            if word in misspelled_words:
-                corrected_text.append(spell.correction(word))
-            else:
-                corrected_text.append(word)
-        return " ".join(str(word) for word in corrected_text)
-    
     def lemmatize(text):
         lemmatizer = WordNetLemmatizer()
         words = ' '.join([lemmatizer.lemmatize(word) for word in text.split() if word not in stopwords.words('english')])
@@ -132,19 +114,11 @@ def nlp(text):
     text = contractions.fix(text)  # update contractions
     text = re.sub(r'[]!"$%&\'()*+,./:;=#@?[\\^_`{|}~-]+', "", text)  # punctuations, special chars
     text = re.sub(r'\s+', ' ', text)
-    text = correct_spellings(text)
     text = lemmatize(text)
     return text
 
-def extract_text(image):
-    OCR = load_OCR()
-    res = OCR.readtext(image)
-    ans = []
-    for img,text,prob in res:
-        ans.append(text)
-    txt = ""
-    for st in ans:
-        txt+=" "+st
+def extract_text(img):
+    txt = pytesseract.image_to_string(img)
     return txt
 
 def load_sentiment_model():
@@ -182,7 +156,7 @@ def main():
         if uploaded_file is not None:
             image = PIL.Image.open(uploaded_file)
             st.image(image, caption="Uploaded Image", use_column_width=True)
-            text = extract_text(uploaded_file)
+            text = extract_text(image)
             sentiment = predict_sentiment(text)
             emotion = predict_emotion(text)
             st.write(f"Extracted Text: {text}\n\nPredicted Sentiment: {sentiment}\n\nPredicted Emotion: {emotion}")
@@ -193,7 +167,7 @@ def main():
             if image_url:
                 image = PIL.Image.open(requests.get(image_url, stream=True).raw)
                 st.image(image, caption="Uploaded Image", use_column_width=True)
-                text = extract_text(image_url)
+                text = extract_text(image)
                 sentiment = predict_sentiment(text)
                 emotion = predict_emotion(text)
                 st.write(f"Extracted Text: {text}\n\nPredicted Sentiment: {sentiment}\n\nPredicted Emotion: {emotion}")
