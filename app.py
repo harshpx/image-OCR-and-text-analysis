@@ -111,7 +111,6 @@ def nlp(text):
     text = re.sub(r'@\S+','',text)  # Mentions
     text = re.sub(r'&\S+','',text)  # html characters
     text = re.sub(r'[^\x00-\x7f]','',text)  # non-ASCII
-    text = contractions.fix(text)  # update contractions
     text = re.sub(r'[]!"$%&\'()*+,./:;=#@?[\\^_`{|}~-]+', "", text)  # punctuations, special chars
     text = re.sub(r'\s+', ' ', text)
     text = lemmatize(text)
