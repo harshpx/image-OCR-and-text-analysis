@@ -1,6 +1,6 @@
 numpy
 streamlit
-opencv-python
+opencv-python-headless
 pytesseract
 scikit-learn
 nltk
